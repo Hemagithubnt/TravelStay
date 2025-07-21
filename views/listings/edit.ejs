@@ -1,0 +1,77 @@
+<% layout("/layouts/boilerplate") %>
+<div class="row">
+  <div class="col-8 offset-2">
+<h3>Edit your Listing</h3>
+   
+<form method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
+   <div class="mb-3">
+    <label for="title" class="form-label">Title</label>
+      <input name="listing[title]" value="<%= listing.title %>" type="text" class="form-control" id="title" required />
+      <div class="invalid-feedback">title is required.</div>
+   </div>
+     <div class="mb-3">
+       <label for="description" class="form-label">description</label>
+      <textarea name="listing[description]" class="form-control" id="description" required>
+      <%= listing.description %></textarea>
+      <div class="invalid-feedback">Description is required.</div>
+      </div>
+       <div class="mb-3">
+         <label for="url" class="form-label">Upload New Image</label>
+    <input
+    name="listing[image]"
+    type="file"
+    class="form-control" id="url"
+  />
+  </div>
+  
+  <!-- ✅ ADD THIS CATEGORY FIELD -->
+  <div class="mb-3">
+    <label for="category" class="form-label">Category</label>
+    <select class="form-select" name="listing[category]" id="category" required>
+      <option value="">Select a category</option>
+      <option value="Trending" <%= listing.category === 'Trending' ? 'selected' : '' %>>Trending</option>
+      <option value="Rooms" <%= listing.category === 'Rooms' ? 'selected' : '' %>>Rooms</option>
+      <option value="Iconic city" <%= listing.category === 'Iconic city' ? 'selected' : '' %>>Iconic city</option>
+      <option value="Mountain" <%= listing.category === 'Mountain' ? 'selected' : '' %>>Mountain</option>
+      <option value="Beach" <%= listing.category === 'Beach' ? 'selected' : '' %>>Beach</option>
+      <option value="Amazing Pools" <%= listing.category === 'Amazing Pools' ? 'selected' : '' %>>Amazing Pools</option>
+      <option value="Lack Front" <%= listing.category === 'Lack Front' ? 'selected' : '' %>>Lack Front</option>
+      <option value="River Front" <%= listing.category === 'River Front' ? 'selected' : '' %>>River Front</option>
+      <option value="Castles" <%= listing.category === 'Castles' ? 'selected' : '' %>>Castles</option>
+    </select>
+    <div class="invalid-feedback">Category is required.</div>
+  </div>
+  <!-- ✅ END OF CATEGORY FIELD -->
+  
+  <div class="mb-3">
+     <label for="price" class="form-label">price</label>
+      <input name="listing[price]" value="<%= listing.price %>" class="form-control" id="price" required />
+      <div class="invalid-feedback">Price is required.</div>
+    </div>
+    <div class="row"><div class="mb-3 col-md-4">
+      <label for="country" class="form-label">country</label>
+    <input
+        name="listing[country]"
+        value="<%= listing.country %>"
+        type="text"
+        class="form-control" id="country"
+        required
+      />
+      <div class="invalid-feedback">Country is required.</div>
+      </div>
+        <div class="mb-3 col-md-8">
+           <label for="location" class="form-label">location</label>
+      <input
+        name="listing[location]"
+        value="<%= listing.location %>"
+        type="text"
+        class="form-control" id="location"
+        required
+      />
+      <div class="invalid-feedback">Location is required.</div>
+      </div>
+    </div>
+      <button class="btn btn-dark add-btn">Edit</button>
+    </form>
+    </div>
+    </div>

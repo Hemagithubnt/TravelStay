@@ -1,0 +1,215 @@
+<!-- Updated Navbar with Search Dropdown -->
+<style>
+  .btn-search{
+    color: #fff;
+    background-color: #fe424d;
+    border: none;
+    margin-left: .5rem;
+    border-radius: 25px;
+    padding: 0 1rem 0 1rem;
+  }
+  .btn-search:hover{
+    background-color: #fe424d ;
+    color: #fff;
+  }
+  .btn-search i {
+    display: inline;
+  }
+  .search-inp{
+    border-radius: 25px;
+  }
+  
+  /* Search Dropdown Styles */
+  .search-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  .search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+  }
+  
+  .search-item {
+    padding: 12px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-item:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .search-item:last-child {
+    border-bottom: none;
+  }
+  
+  .search-item-content {
+    flex: 1;
+  }
+  
+  .search-item-title {
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+  }
+  
+  .search-item-location {
+    color: #666;
+    font-size: 12px;
+    margin-top: 2px;
+  }
+  
+  .search-item-price {
+    color: #fe424d;
+    font-weight: 500;
+    font-size: 12px;
+  }
+  
+  .no-results {
+    padding: 16px;
+    text-align: center;
+    color: #666;
+    font-style: italic;
+  }
+</style>
+
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link" href="/listings">Explore</a>
+      </div>
+      <div class="navbar-nav ms-auto">
+        <form class="d-flex search-container" role="search" id="searchForm">
+          <div style="position: relative; flex: 1;">
+            <input 
+              class="form-control me-2 search-inp" 
+              type="search" 
+              placeholder="Search Destination" 
+              aria-label="Search"
+              id="searchInput"
+              autocomplete="off"
+            />
+            <div class="search-dropdown" id="searchDropdown"></div>
+          </div>
+          <button class="btn btn-search" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>Search
+          </button>
+        </form>
+      </div>
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="/listings/new">Add new Listing</a>
+        <% if(!currentUser){ %>
+        <a class="nav-link" href="/signup"><b>SignUp</b></a>
+        <a class="nav-link" href="/login"><b>Login</b></a>
+        <% } %>
+        <% if(currentUser){ %>
+        <a class="nav-link" href="/logout"><b>LogOut</b></a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Search JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const searchDropdown = document.getElementById('searchDropdown');
+    const searchForm = document.getElementById('searchForm');
+    let searchTimeout;
+
+    // Search functionality
+    searchInput.addEventListener('input', function() {
+        const query = this.value.trim();
+        
+        // Clear previous timeout
+        clearTimeout(searchTimeout);
+        
+        if (query.length < 2) {
+            hideDropdown();
+            return;
+        }
+        
+        // Debounce search requests
+        searchTimeout = setTimeout(() => {
+            performSearch(query);
+        }, 300);
+    });
+
+    // Hide dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.search-container')) {
+            hideDropdown();
+        }
+    });
+
+    // Handle form submission
+    searchForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const query = searchInput.value.trim();
+        if (query) {
+            window.location.href = `/listings/search?q=${encodeURIComponent(query)}`;
+        }
+    });
+
+    function performSearch(query) {
+        fetch(`/listings/search-suggestions?q=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(data => {
+                displaySearchResults(data);
+            })
+            .catch(error => {
+                console.error('Search error:', error);
+                hideDropdown();
+            });
+    }
+
+    function displaySearchResults(listings) {
+        if (!listings || listings.length === 0) {
+            searchDropdown.innerHTML = '<div class="no-results">No listings found</div>';
+        } else {
+            searchDropdown.innerHTML = listings.map(listing => `
+                <div class="search-item" onclick="selectListing('${listing._id}')">
+                    <div class="search-item-content">
+                        <div class="search-item-title">${listing.title}</div>
+                        <div class="search-item-location">${listing.location}, ${listing.country}</div>
+                    </div>
+                    <div class="search-item-price">₹${listing.price ? listing.price.toLocaleString("en-IN") : "N/A"}/night</div>
+                </div>
+            `).join('');
+        }
+        showDropdown();
+    }
+
+    function showDropdown() {
+        searchDropdown.style.display = 'block';
+    }
+
+    function hideDropdown() {
+        searchDropdown.style.display = 'none';
+    }
+
+    // Make selectListing function global
+    window.selectListing = function(listingId) {
+        window.location.href = `/listings/${listingId}`;
+    }
+});
+</script>
