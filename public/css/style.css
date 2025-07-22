@@ -1,159 +1,394 @@
+/* TravelStay - Updated Mobile Responsive CSS */
+
 body{
     font-family: "Plus Jakarta Sans", sans-serif !important;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
+
 .container{
     flex: 1;
 }
+
 /* Navbar */
 .navbar{
     height: 5rem;
     background-color: white;
 }
+
 .fa-compass{
     color: #fe424d;
     font-size: 2rem;
 }
+
 .nav-link{
     color: #222222 !important;
 }
-.f-info-links a{
-        text-decoration: none;
-        color: #222222;
+
+/* Search Styles (from your navbar) */
+.btn-search{
+    color: #fff;
+    background-color: #fe424d;
+    border: none;
+    margin-left: .5rem;
+    border-radius: 25px;
+    padding: 0 1rem 0 1rem;
 }
+
+.btn-search:hover{
+    background-color: #fe424d ;
+    color: #fff;
+}
+
+.btn-search i {
+    display: inline;
+}
+
+.search-inp{
+    border-radius: 25px;
+}
+
+.search-container {
+    position: relative;
+    width: 100%;
+}
+
+.search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+}
+
+.search-item {
+    padding: 12px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+}
+
+.search-item:hover {
+    background-color: #f8f9fa;
+}
+
+.search-item:last-child {
+    border-bottom: none;
+}
+
+.search-item-content {
+    flex: 1;
+}
+
+.search-item-title {
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+}
+
+.search-item-location {
+    color: #666;
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+.search-item-price {
+    color: #fe424d;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.no-results {
+    padding: 16px;
+    text-align: center;
+    color: #666;
+    font-style: italic;
+}
+
+/* Filters - Default Desktop */
+#filters{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.filter{
+    text-align: center;
+    margin-right: 2.5rem;
+    opacity: .7;
+    text-decoration: none;
+}
+
+.filter:hover{
+    opacity: 1;
+    cursor: pointer;
+}
+
+.filter p{
+    font-size: .8rem;
+}
+
+.tax-info{
+    display: none;
+}
+
+.tax-toggle{
+    border: 1px solid black;
+    border-radius: 1rem;
+    height: 3.2rem;
+    padding: 1rem;
+    margin-left:1rem;
+    display: flex;
+    align-items: center;
+    margin-top: 0;
+}
+
+/* Footer */
+.f-info-links a{
+    text-decoration: none;
+    color: #222222;
+}
+
 .f-info-links a:hover{
-        text-decoration: underline;
-       }
+    text-decoration: underline;
+}
+
 .f-info-links,.f-info-socials,.f-info-brand{
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 .f-info-socials i{
     margin-right: 1rem;
     font-size: 1.3rem;
 }
-       .f-info{
-        text-align: center;
-        height: 5rem;
-        display: flex;
-        background-color: #ebebeb;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: space-evenly;
-       }
-       /* cards */
+
+.f-info{
+    text-align: center;
+    height: 5rem;
+    display: flex;
+    background-color: #ebebeb;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: space-evenly;
+}
+
+/* Cards */
 .listing-card{
     border: none !important;
     margin-bottom: 2rem;
 }
+
 .card-img-top{
     border-radius: 1rem !important;
     width: 100% !important;
     object-fit: cover !important;
 }
+
 .card-body{
     padding: 0 !important;
 }
+
 .card-text p {
     font-weight: 400 !important;
 }
+
 .listing-link{
     text-decoration: none;
 }
 
-/* card effect */
+/* Card Effects */
 .card-img-overlay{
     opacity: 0;
 }
+
 .card-img-overlay:hover{
     opacity: .3;
     background-color: white;
 }
+
 .fa-heart{
     color: red;
 }
+
 .add-btn{
     background-color: #fe424d !important;
     border: none !important;
 }
-/* show page */
+
+/* Show Page */
 .show-img{
     height: 30vh;
 }
-.btnji {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-}
 
+.btnji {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
 
 /* Map */
 #map {
-  height: 400px;
-  width: 100%;
-}
-
- /* MOBILE RESPONSIVE FIXES */
-
-@media (max-width: 768px) {
-  #filters {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .filter {
-    margin-right: 0;
-    font-size: 1rem;
-  }
-
-  .tax-toggle {
-    margin-left: 0;
+    height: 400px;
     width: 100%;
-    margin-top: 1rem;
-    justify-content: start;
-  }
-
-  .btnji {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .card-img-top {
-    height: auto;
-  }
-
-  .show-img {
-    height: auto;
-  }
-
-  #map {
-    height: 300px;
-    width: 100% !important;
-  }
-
-  .listing-card {
-    margin-bottom: 2rem;
-  }
 }
-
 
 .listing-card {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .card-img-top {
-  height: 15rem;
-  object-fit: cover;
+    height: 15rem;
+    object-fit: cover;
 }
 
+/* MOBILE RESPONSIVE - Key Fixes */
+@media (max-width: 768px) {
+    /* MAIN FIX 1: Horizontal Scrolling Filters */
+    #filters {
+        flex-wrap: nowrap !important;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 1rem 0.5rem;
+        gap: 1.5rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    
+    #filters::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .filter {
+        flex-shrink: 0;
+        margin-right: 0;
+        min-width: 60px;
+        white-space: nowrap;
+    }
+    
+    .filter p {
+        font-size: 0.75rem;
+        margin: 0.25rem 0 0 0;
+    }
+    
+    .tax-toggle {
+        flex-shrink: 0;
+        margin-left: 0;
+        width: auto;
+        min-width: 200px;
+        height: auto;
+        padding: 0.75rem;
+        margin-top: 0;
+    }
+    
+    /* MAIN FIX 2: Search Bar Mobile */
+    .search-inp {
+        font-size: 16px !important; /* Prevents zoom on iOS */
+        min-height: 44px;
+        padding: 0.75rem 1rem;
+    }
+    
+    .btn-search {
+        min-height: 44px;
+        padding: 0.5rem 1rem;
+        white-space: nowrap;
+        font-size: 0.9rem;
+    }
+    
+    .search-container {
+        flex: 1;
+        min-width: 0;
+    }
+    
+    .navbar-nav.ms-auto form.d-flex {
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+    
+    /* Cards Mobile */
+    .card-img-top {
+        height: 12rem;
+    }
+    
+    .listing-card {
+        margin-bottom: 1.5rem;
+    }
+    
+    .btnji {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .show-img {
+        height: auto;
+        max-height: 50vh;
+    }
+    
+    #map {
+        height: 300px;
+    }
+}
 
+/* Small Mobile (480px and below) */
+@media (max-width: 480px) {
+    .container-fluid {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    #filters {
+        padding: 1rem 0.5rem;
+        gap: 1rem;
+    }
+    
+    .filter {
+        min-width: 50px;
+    }
+    
+    .filter i {
+        font-size: 1.1rem;
+    }
+    
+    .filter p {
+        font-size: 0.7rem;
+    }
+    
+    .tax-toggle {
+        min-width: 180px;
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .tax-toggle .form-check-label {
+        font-size: 0.75rem;
+    }
+    
+    .btn-search {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
+    }
+    
+    .card-img-top {
+        height: 10rem;
+    }
+    
+    #map {
+        height: 250px;
+    }
+}
