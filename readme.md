@@ -6,8 +6,8 @@ TravelStay is a full-stack clone of Airbnb that allows users to explore, list, a
 
 ## 🚀 Demo
 
-🌐 **Live Preview:** _Coming soon_  
-📸 **Screenshots:** _Add UI images for homepage, listing, login, etc._
+🌐 **Live Preview:** https://travelstay-website.onrender.com  
+📸 **Screenshots:** .
 
 ---
 
